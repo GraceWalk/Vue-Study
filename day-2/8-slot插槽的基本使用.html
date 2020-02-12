@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <cpn>
+      <template slot-scope="slot">
+        <span v-for="item in slot.data">{{ item }} - </span>
+      </template>
+    </cpn>
+    <cpn>
+      <template slot-scope="slot">
+        <span v-for="item in slot.data">{{ item }} * </span>
+      </template>
+    </cpn>
+  </div>
+  
+  <template id="test">
+    <div>
+      <slot :data="movies">
+        <ul>
+          <li v-for="item in movies">{{ item }}</li>
+        </ul>
+      </slot>
+    </div>
+  </template>
+  <script src="../../vue/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {},
+      components: {
+        cpn: {
+          template: '#test',
+          data() {
+            return {
+              movies: ['1', '2', '3', '4', '5']
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

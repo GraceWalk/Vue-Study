@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <tem :number1="num1" :number2="num2" @num="changenum" ref="test"></tem>
+    <button @click="btnClick">按钮</button>
+  </div>
+  
+  <template id="tem">
+    <div>
+      <div>parent: {{ number1 }}</div>
+      <div>props: {{ dnumber1 }}</div>
+      <input type="text" v-model:value="dnumber1">
+      <div>parent: {{ number2 }}</div>
+      <div>props: {{ dnumber2 }}</div>
+      <input type="text" v-model:value="dnumber2">
+    </div>
+  </template>
+  <script src="../../vue/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        num1: 1,
+        num2: 2
+      },
+      methods: {
+        changenum({...value}) {
+          value.index === 1 ? this.num1 = parseInt(value.num) : this.num2 = parseInt(value.num)
+        },
+        btnClick() {
+          //父访问子: $children $refs 子访问父: $parent 子访问根: $root
+          console.log(this.$children)
+          console.log(this.$refs)
+        }
+      },
+      components: {
+        tem: {
+          template: '#tem',
+          props: {
+            number1: Number,
+            number2: Number
+          },
+          data() {
+            return {
+              dnumber1: this.number1,
+              dnumber2: this.number2
+            }
+          },
+          methods: {
+            numchange(index) {
+              index === 1 ? this.dnumber2 = this.dnumber1 * 100 : this.dnumber1 = this.dnumber2 / 100
+              this.$emit('num', {num: this.dnumber1, index: 1})
+              this.$emit('num', {num: this.dnumber2, index: 2})
+            }
+          },
+          watch: {
+            dnumber1(newValue) {
+              this.dnumber2 = this.dnumber1 * 100
+              this.$emit('num', {num: this.dnumber1, index: 1})
+            },
+            dnumber2(newValue) {
+              this.dnumber1 = this.dnumber2 / 100
+              this.$emit('num', {num: this.dnumber2, index: 2})
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

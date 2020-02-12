@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <cpn :cmessage="message" :cmovies="movies"></cpn>
+  </div>
+
+  <template id="test">
+    <ul>
+      <li v-for="movie in cmovies">{{ movie }}</li>
+      <p>{{ cmessage }}</p>
+    </ul>
+  </template>
+  <script src="../../vue/vue.js"></script>
+  <script>
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        movies: ['1', '2', '3', '4'],
+        message: 'hello'
+      },
+      components: {
+        'cpn': {
+          template: '#test',
+          props: {
+            cmessage: {
+              type: String,
+              default: '',
+              require: true
+            },
+            cmovies: {
+              type: Array,
+              default() {
+                return []
+              },
+              require: true
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

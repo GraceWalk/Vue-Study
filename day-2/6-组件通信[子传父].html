@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+    <cpn @btnclick="cpnclick"></cpn>
+    {{ date }}
+  </div>
+  
+  <template id="test">
+    <div>
+      <button v-for="item in cates" @click="btnClick(item)">{{ item.name }}</button>
+    </div>
+  </template>
+  <script src="../../vue/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        date: {}
+      },
+      components: {
+        cpn: {
+          template: '#test',
+          data() {
+            return {
+              cates: [
+                {id: '1', name: '热门推荐'},
+                {id: '2', name: '手机数码'},
+                {id: '3', name: '家用办公'},
+                {id: '4', name: '电脑办公'},
+              ]
+            }
+          },
+          methods: {
+            btnClick(item) {
+              // 子传父 :$emit自定义事件
+              this.$emit('btnclick', item)
+            }
+          }
+        }
+      },
+      methods: {
+        cpnclick(item) {
+          this.date = item
+        }
+      }
+    })
+  </script>
+</body>
+</html>
