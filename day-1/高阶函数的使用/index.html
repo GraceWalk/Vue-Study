@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高阶函数的使用</title>
+</head>
+<body>
+  
+  <script>
+    //filter 过滤函数
+    //map 遍历函数
+    //reduce 计算总值
+    let nums = [1, 6, 8, 9, 23, 56, 123, 56, 477, 34]
+    let nums1 = nums.filter(n => n < 100).map(n => n * 2)
+        .reduce((preValue, currentValue) => preValue + currentValue)
+  </script>
+</body>
+</html>

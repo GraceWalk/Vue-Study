@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model的使用</title>
+</head>
+<body>
+  <div id="app">
+    <!-- input输入框绑定 -->
+    <input type="text" v-model.lazy="message">
+    {{message}}
+
+    <!-- textarea绑定 -->
+    <p style="white-space: pre-line">{{ message }}</p>
+    <textarea cols="30" rows="10" v-model="message"></textarea>
+
+    <br>
+    <!-- 单个复选框 -->
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">是否同意协议: {{ checked }}</label>
+    <button :disabled="!checked">下一步</button>
+
+    <br>
+    <!-- 多个复选框 -->
+    <input type="checkbox" id="Jack" value="Jack" v-model="checkedName">
+    <label for="Jack">Jack</label>
+    <input type="checkbox" id="Tom" value="Tom" v-model="checkedName">
+    <label for="Tom">Tom</label>
+    <input type="checkbox" id="Smith" value="Smith" v-model="checkedName">
+    <label for="Smith">Smith</label>
+    <p>{{ checkedName }}</p>
+
+    <!-- 单选按钮 -->
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <p>{{ picked }}</p>
+
+    <br>
+    <!-- 单选框 -->
+    <select v-model="selected">
+      <option v-for="option in options" :value="option.value">{{ option.text }}</option>
+    </select>
+    <p>Selected: {{ selected }}</p>
+
+    <br>
+    <!-- 多选框 -->
+    <select v-model="selected1" multiple>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+    </select>
+    <p>Selected: {{ selected1 }}</p>
+</div>
+
+  <script src="../../vue/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '1',
+        checked: false,
+        checkedName: [],
+        picked: '',
+        selected: 'A',
+        options: [
+          { text: 'One', value: 'A'},
+          { text: 'Two', value: 'B'},
+          { text: 'Three', value: 'C'}
+        ],
+        selected1: []
+      }
+    })
+    //双向绑定
+  </script>
+</body>
+</html>
