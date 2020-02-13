@@ -14,9 +14,9 @@ Vue.use(Router)
 
 const routes = [
   { path: '/', redirect: '/home' },
-  { path: '/home', component: Home },
-  { path: '/about', component: About },
-  { path: '/user/:userId', component: User , 
+  { path: '/home', component: Home, meta: {title: '首页'} },
+  { path: '/about', component: About, meta: {title: '关于'} },
+  { path: '/user/:userId', component: User , meta: {title: '用户'},
     children: [
       { path: '/', redirect: 'news' },
       { path: 'news', component: UserNews },

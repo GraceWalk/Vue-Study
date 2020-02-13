@@ -15,6 +15,9 @@ export default {
       userId: 'hello'
     }
   },
+  mounted() {
+    document.title = '首页'
+  },
   methods: {
     btnClick() {
       this.$router.push('/home')

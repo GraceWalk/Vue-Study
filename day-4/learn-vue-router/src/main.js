@@ -10,3 +10,8 @@ new Vue({
   router,
   render: h => h(App)
 })
+
+router.beforeEach((to, from, next) => {
+  document.title = to.matched[0].meta.title
+  next()
+})
