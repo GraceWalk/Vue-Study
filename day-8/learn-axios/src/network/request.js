@@ -49,10 +49,28 @@ import axios from 'axios'
 
 //方法四 直接返回   instance方法本身就是new Promise
 export function request(config) {
+  //1. 创建axios实例
     const instance = axios.create({
       baseURL: 'http://httpbin.org/',
       timeout: 5000
     })
   
+    //2. axios拦截器
+    //请求拦截
+    // instance.interceptors.request(config => {
+    //   console.log(config)
+    //   return config
+    // }, err => {
+    //   console.log(err)
+    // })
+    // //响应拦截
+    // instance.interceptors.response(config => {
+    //   console.log(config)
+    //   return config
+    // }, err => {
+    //   console.log(err)
+    // })
+
+    //3. 发送真正的网络请求
     return instance(config)
 }
