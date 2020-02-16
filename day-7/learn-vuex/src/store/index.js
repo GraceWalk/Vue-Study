@@ -13,12 +13,26 @@ export default new Vuex.Store({
       {id: 4, name: 'yyy', age: 45}
     ]
   },
-  mutations: {
+  //payload commit
+
+  //给新添加的数据添加到响应式系统 Vue.set()  push/pop/unshift/shift
+  //删除shuju  delete state   做不到响应式
+  //Vue.delete 响应式
+
+  //变量抽成常量  export const INCREMENT = 'increment'   mutations中 [INCREMENT](state)
+  mutations: {  //必须是同步方法， 异步操作在devtools中无法跟踪数据的变化 界面变化  数据不显示便阿虎
     increment(state) {
       state.counter++
     },
     decrement(state) {
       state.counter--
+    },
+    incrementNum(state, payload) {
+      state.counter += payload
+    },
+    addSome(state, payload) {
+      Vue.set(state.students, 4, payload)
+      Vue.delete(state.students, 0)
     }
   },
   getters: {
@@ -35,7 +49,16 @@ export default new Vuex.Store({
       return age => state.students.filter(s => s.age > age)
     }
   },
-  actions: {
+  actions: {  //替代mutations用来执行异步操作 this.$store.dispatch()
+    test(context, payload) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(payload)
+          context.commit('addSome', payload)
+          resolve('11111')
+        }, 1000)
+      })
+    }
   },
   modules: {
   }
