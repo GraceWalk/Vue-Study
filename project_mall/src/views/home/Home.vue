@@ -1,12 +1,22 @@
 <template>
   <div>
-    <h2>首页</h2>
+    <nav-bar><span slot="center">首页</span></nav-bar>
   </div>
 </template>
 
-<script>
+<script>  
+  import { getMultiData } from 'network/home'
+
+  import NavBar from 'components/common/navbar/NavBar'
+
   export default {
-    name: 'Home'
+    name: 'Home',
+    components: {
+      NavBar
+    },
+    created() {
+      getMultiData().then(res => console.log(res))
+    }
   }
 </script>
 
