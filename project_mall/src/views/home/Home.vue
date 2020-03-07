@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <nav-bar><span slot="center">首页</span></nav-bar>
-    <swiper class="home-swiper">
+    <swiper class="home-swiper" v-if="banners.length">
       <swiper-item v-for="(item, index) in banners" :key="index">
         <a :href="item.link">
           <img :src="item.image" alt="">

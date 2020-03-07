@@ -1,6 +1,6 @@
 <template>
-  <div class="swiper-box" ref="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
-    <slot></slot>
+  <div class="swiper-box">
+    <div class="swiper" ref="swiper"><slot></slot></div>
   </div>
 </template>
 
@@ -27,7 +27,7 @@
         setTimeout(() => {
           this.handleDom()
           this.startTimer()
-        }, 100)
+        }, 300)
       })
     },
     methods: {
@@ -50,31 +50,27 @@
       startTimer(){
         this.timerNum = setInterval(() => {
           this.currentIndex++
-          this.scrollContent(-this.currentIndex * this.totalWidth)
+          this.scrollSwiper(-this.currentIndex * this.totalWidth)
         }, this.interval)
       },
-      scrollContent(position) {
-        this.swiperStyle.transition = `transform 300ms`
+      scrollSwiper(position) {
+        this.swiperStyle.transition = 'transform 300ms'
         this.setTransform(position)
         this.checkPosition()
       },
       setTransform(position) {
-        console.log(position)
-        this.swiperStyle.transform = `translate3d(${position}px, 0, 0)`
+        this.swiperStyle.transform = `translate(${position}px, 0)`
       },
-      checkPosition: function () {
-        window.setTimeout(() => {
-          // 1.校验正确的位置
-          this.swiperStyle.transition = '0ms';
-          // if (this.currentIndex >= this.slideCount + 1) {
-          //   this.currentIndex = 1;
-          //   this.setTransform(-this.currentIndex * this.totalWidth);
-          // } else if (this.currentIndex <= 0) {
-          //   this.currentIndex = this.slideCount;
-          //   this.setTransform(-this.currentIndex * this.totalWidth);
-          // }
-          // 2.结束移动后的回调
-          // this.$emit('transitionEnd', this.currentIndex-1);
+      checkPosition() {
+        setTimeout(() => {
+          this.swiperStyle.transition = '0ms'
+
+          console.log(this.currentIndex, this.slideCount)
+          if (this.currentIndex >= this.slideCount) {
+            this.currentIndex = 0
+            this.setTransform(-this.currentIndex * this.totalWidth)
+          }
+
         }, 300)
       },
 
@@ -93,9 +89,11 @@
 
 <style scoped>
   .swiper-box {
+    overflow: hidden;
+  }
+  .swiper {
     display: flex;
     flex-direction: row;
-    overflow: hidden;
   }
 
 </style>
